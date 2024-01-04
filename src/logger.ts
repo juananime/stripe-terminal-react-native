@@ -102,24 +102,7 @@ export default class Logger {
   static posId: string = `pos-${Math.random().toString(36).substring(2)}`;
   _traces: Array<Trace> = [];
 
-  static getCircularReplacer = ()  => {
-    const ancestors = [];
-    return function (key, value) {
-      if (typeof value !== "object" || value === null) {
-        return value;
-      }
-      // `this` is the object that value is contained in,
-      // i.e., its direct parent.
-      while (ancestors.length > 0 && ancestors.at(-1) !== this) {
-        ancestors.pop();
-      }
-      if (ancestors.includes(value)) {
-        return "[Circular]";
-      }
-      ancestors.push(value);
-      return value;
-    };
-  }
+
 
   static getInstance() {
     if (Logger.instance === null) {
@@ -152,7 +135,24 @@ export default class Logger {
       const method = methodName || fn.name;
       console.log({args});
       const action_id = `${Math.floor(Math.random() * 100000000)}`;
-
+      const getCircularReplacer = ()  => {
+        const ancestors = [];
+        return function (key, value) {
+          if (typeof value !== "object" || value === null) {
+            return value;
+          }
+          // `this` is the object that value is contained in,
+          // i.e., its direct parent.
+          while (ancestors.length > 0 && ancestors.at(-1) !== this) {
+            ancestors.pop();
+          }
+          if (ancestors.includes(value)) {
+            return "[Circular]";
+          }
+          ancestors.push(value);
+          return value;
+        };
+      }
       const baseTraceObject: Trace = {
         origin_role: 'pos-rn',
         origin_id: Logger.posId,
@@ -165,7 +165,7 @@ export default class Logger {
           total_time_ms: 0,
           service: 'StripeTerminalReactNative',
           method,
-          request: JSON.stringify({ args }, Logger.getCircularReplacer()),
+          request: JSON.stringify({ args }, getCircularReplacer()),
           version_info: {
             client_type: 'RN_SDK',
             client_version: packageJson.version,
