@@ -128,6 +128,7 @@ export default class Logger {
     fn: (...args: any[]) => any | Promise<any>,
     methodName: string
   ) {
+    console.log({args});
     return function constructTrace(this: any, ...args: any[]) {
       const method = methodName || fn.name;
 

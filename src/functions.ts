@@ -108,8 +108,9 @@ export async function cancelDiscovering(): Promise<CancelDiscoveringResultType> 
 export async function connectBluetoothReader(
   params: ConnectBluetoothReaderParams
 ): Promise<ConnectReaderResultType> {
+  console.log('LPLPLPLLP')
   return Logger.traceSdkMethod(async (innerParams) => {
-    console.log('LPLPLPLLP')
+
     try {
       const { error, reader } = await StripeTerminalSdk.connectBluetoothReader(
         innerParams
