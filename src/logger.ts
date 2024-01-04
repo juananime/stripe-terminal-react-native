@@ -131,7 +131,7 @@ export default class Logger {
 
     return function constructTrace(this: any, ...args: any[]) {
       const method = methodName || fn.name;
-      console.log({args});
+
       const action_id = `${Math.floor(Math.random() * 100000000)}`;
 
       const baseTraceObject: Trace = {
@@ -146,7 +146,7 @@ export default class Logger {
           total_time_ms: 0,
           service: 'StripeTerminalReactNative',
           method,
-          request: JSON.stringify({ args }),
+          request: "test",
           version_info: {
             client_type: 'RN_SDK',
             client_version: packageJson.version,
