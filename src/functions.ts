@@ -109,11 +109,11 @@ export async function connectBluetoothReader(
   params: ConnectBluetoothReaderParams
 ): Promise<ConnectReaderResultType> {
   console.log('LPLPLPLLP')
-  return Logger.traceSdkMethod(async (innerParams) => {
+ // return Logger.traceSdkMethod(async (innerParams) => {
 
     try {
       const { error, reader } = await StripeTerminalSdk.connectBluetoothReader(
-        innerParams
+        params
       );
 
       if (error) {
@@ -131,7 +131,7 @@ export async function connectBluetoothReader(
         error: error as any,
       };
     }
-  }, 'connectBluetoothReader')(params);
+ // }, 'connectBluetoothReader')(params);
 }
 
 export async function connectHandoffReader(
