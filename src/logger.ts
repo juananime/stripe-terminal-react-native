@@ -137,12 +137,13 @@ export default class Logger {
       const action_id = `${Math.floor(Math.random() * 100000000)}`;
       const getCircularReplacer = ()  => {
         const ancestors:any = [];
+        // @ts-ignore
         return function (key:any, value:any) {
           if (typeof value !== "object" || value === null) {
             return value;
           }
-          // `this` is the object that value is contained in,
-          // i.e., its direct parent.
+        
+          // @ts-ignore
           while (ancestors.length > 0 && ancestors.at(-1) !== this) {
             ancestors.pop();
           }
