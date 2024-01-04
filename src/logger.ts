@@ -128,10 +128,10 @@ export default class Logger {
     fn: (...args: any[]) => any | Promise<any>,
     methodName: string
   ) {
-    console.log({args});
+
     return function constructTrace(this: any, ...args: any[]) {
       const method = methodName || fn.name;
-
+      console.log({args});
       const action_id = `${Math.floor(Math.random() * 100000000)}`;
 
       const baseTraceObject: Trace = {
