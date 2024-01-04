@@ -136,8 +136,8 @@ export default class Logger {
       console.log({args});
       const action_id = `${Math.floor(Math.random() * 100000000)}`;
       const getCircularReplacer = ()  => {
-        const ancestors = [];
-        return function (key, value) {
+        const ancestors:any = [];
+        return function (key:any, value:any) {
           if (typeof value !== "object" || value === null) {
             return value;
           }
